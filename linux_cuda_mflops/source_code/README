@@ -1,0 +1,43 @@
+ The following apply to a Ubuntu system.
+
+ Create a folder in the directory containing CUDA sample source codes.
+ In my case folder renamed as cudamflops with full path:
+
+ roy@roy-64Bit:~/NVIDIA_GPU_Computing_SDK/C/src/cudamflops$
+
+ Copy in cudaMFLOPS1.cu - Change lines 22 to 28 to indicate 32-Bit or
+ 64-Bit compilation and Singe Precision or Double Precision numbers. 
+
+ Copy cpuida32.o, cpuidc32.o (or  cpuida64.o, cpuidc64.o), cpuidhn.h
+ and Makefile from 32_Bit or 64_Bit folder. Compile and link using the make
+ command. The execution code should appear in the sample program bin 
+ directory, in my case (with program run command):
+
+ roy@roy-64Bit:~/NVIDIA_GPU_Computing_SDK/C/bin/linux/release$ ./cudamflops
+
+ It might need the library path for libcudart.so.3 (or such as 
+ libcudart.so.3.2.16 renamed ), in:
+
+ roy@roy-64Bit:/usr/local/cuda/lib64$ or /lib$
+
+ Results log file should be in the same directory as the execution file.
+ The program can be renamed and copied where ever.
+
+ ALTERNATIVE
+
+ Directory containing cudaMFLOPS1.cu (Change lines 22 to 28), cpuida32.o, 
+ cpuidc32.o (or  cpuida64.o, cpuidc64.o) and cpuidhn.h - use the following
+ command where the execution file will be saved in the same folder:
+
+ nvcc cudaMFLOPS1.cu -I ~/NVIDIA_GPU_Computing_SDK/C/common/inc -I ~/NVIDIA_GPU_Computing_SDK/shared/inc cpuida64.o cpuidc64.o -o cudamflops
+
+or for 32 bit version
+
+ nvcc cudaMFLOPS1.cu -I ~/NVIDIA_GPU_Computing_SDK/C/common/inc -I ~/NVIDIA_GPU_Computing_SDK/shared/inc cpuida32.o cpuidc32.o -o cudamflops
+
+
+
+ 
+
+
+

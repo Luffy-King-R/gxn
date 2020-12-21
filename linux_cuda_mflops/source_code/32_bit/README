@@ -1,0 +1,2 @@
+ Other than Makefile, the files are from the common directory 
+ except cpuidhn.h is cpuidh.h with added variable declarations.

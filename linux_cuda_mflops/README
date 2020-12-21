@@ -1,0 +1,141 @@
+ CONTENTS
+
+ bin_32 directory        - cudamflops32SP and cudamflops32DP Single Precision 
+                           and Double Precision benchmarks and run time Library
+                           compiled as 32-Bits to run via 32-Bit or 64-Bit Linux
+
+ bin_64 directory        - cudamflops64SP and cudamflops64DP Single Precision 
+                           and Double Precision benchmarks and run time Library
+                           compiled as 64-Bits to run via 64-Bit Linux only
+
+ source_code directory   - C benchmark with options to select 32 or 64 bit
+                           operation, 32 bit and 64 bit assembly code, 
+                           common code for configuration details and 
+                           README file with details of commands to be used
+                           to compile and link the programs. 
+
+
+ DESCRIPTION 
+
+ The benchmarks measure floating point speeds in Millions of Floating Point
+ Operations Per Second (MFLOPS). They demonstrates some best and worst case
+ performance using varying data array size and increasing processing
+ instructions per data access. These use nVidia CUDA programming functions
+ that only execute on their graphics hardware and compatible driver.  
+ There are five scenarios:
+
+ * New Calculations   - Copy data to graphics RAM, execute instructions,
+                        copy back to host RAM [Data in & out]
+ * Update Data        - Execute further instructions on data in graphics RAM, 
+                        copy back to host RAM [Data out only]
+ * Graphics Only Data - Execute further instructions on data in graphics RAM,
+                        leave it there [Calculate only]
+ * Extra Test 1       - Just graphics data, repeat loop in CUDA function
+                        [Calculate]
+ * Extra Test 2       - Just graphics data, repeat loop in CUDA function 
+                        but using Shared Memory [Shared Memory]
+
+  Example results are:
+
+ #####################################################
+
+  Assembler CPUID and RDTSC       
+  CPU GenuineIntel, Features Code BFEBFBFF, Model Code 000006F6 
+  Intel(R) Core(TM)2 CPU          6600  @ 2.40GHz 
+  Measured - Minimum 2402 MHz, Maximum 2402 MHz 
+  Linux Functions 
+  get_nprocs() - CPUs 2, Configured CPUs 2 
+  get_phys_pages() and size - RAM Size  3.87 GB, Page Size 4096 Bytes 
+  uname() - Linux, roy-64Bit, 2.6.35-24-generic 
+  #42-Ubuntu SMP Thu Dec 2 02:41:37 UTC 2010, x86_64 
+
+ #####################################################
+
+  Linux CUDA 3.2 x64 32 Bits SP MFLOPS Benchmark 1.4 Wed Dec 29 15:13:52 2010
+
+  CUDA devices found 
+  Device 0: GeForce 8600 GT  with 4 Processors 32 cores 
+  Global Memory 249 MB, Shared Memory/Block 16384 B, Max Threads/Block 512
+
+  Using 256 Threads
+
+  Test            4 Byte  Ops  Repeat   Seconds   MFLOPS             First  All
+                   Words  /Wd  Passes                              Results Same
+
+ Data in & out    100000    2    2500  1.861928      269   0.9295383095741  Yes
+ Data out only    100000    2    2500  1.086684      460   0.9295383095741  Yes
+ Calculate only   100000    2    2500  0.179893     2779   0.9295383095741  Yes
+
+ Data in & out   1000000    2     250  1.286029      389   0.9925497770309  Yes
+ Data out only   1000000    2     250  0.792663      631   0.9925497770309  Yes
+ Calculate only  1000000    2     250  0.141004     3546   0.9925497770309  Yes
+
+ Data in & out  10000000    2      25  1.130810      442   0.9992496371269  Yes
+ Data out only  10000000    2      25  0.723957      691   0.9992496371269  Yes
+ Calculate only 10000000    2      25  0.127902     3909   0.9992496371269  Yes
+
+ Data in & out    100000    8    2500  1.889400     1059   0.9569796919823  Yes
+ Data out only    100000    8    2500  1.102407     1814   0.9569796919823  Yes
+ Calculate only   100000    8    2500  0.195419    10234   0.9569796919823  Yes
+
+ Data in & out   1000000    8     250  1.298349     1540   0.9955092668533  Yes
+ Data out only   1000000    8     250  0.803459     2489   0.9955092668533  Yes
+ Calculate only  1000000    8     250  0.152881    13082   0.9955092668533  Yes
+
+ Data in & out  10000000    8      25  1.140410     1754   0.9995486140251  Yes
+ Data out only  10000000    8      25  0.733486     2727   0.9995486140251  Yes
+ Calculate only 10000000    8      25  0.137064    14592   0.9995486140251  Yes
+
+ Data in & out    100000   32    2500  2.052670     3897   0.8900792598724  Yes
+ Data out only    100000   32    2500  1.266792     6315   0.8900792598724  Yes
+ Calculate only   100000   32    2500  0.360194    22210   0.8900792598724  Yes
+
+ Data in & out   1000000   32     250  1.437159     5567   0.9880728721619  Yes
+ Data out only   1000000   32     250  0.943913     8475   0.9880728721619  Yes
+ Calculate only  1000000   32     250  0.292723    27330   0.9880728721619  Yes
+
+ Data in & out  10000000   32      25  1.277320     6263   0.9987990260124  Yes
+ Data out only  10000000   32      25  0.871232     9182   0.9987990260124  Yes
+ Calculate only 10000000   32      25  0.277479    28831   0.9987990260124  Yes
+
+ Extra tests - loop in main CUDA Function
+
+ Calculate      10000000    2      25  0.130717     3825   0.9992496371269  Yes
+ Shared Memory  10000000    2      25  0.046654    10717   0.9992496371269  Yes
+
+ Calculate      10000000    8      25  0.131781    15177   0.9995486140251  Yes
+ Shared Memory  10000000    8      25  0.085201    23474   0.9995486140251  Yes
+
+ Calculate      10000000   32      25  0.255915    31260   0.9987990260124  Yes
+ Shared Memory  10000000   32      25  0.235060    34034   0.9987990260124  Yes
+
+
+ #####################################################
+
+ For further details and results see:
+
+ http://www.roylongbottom.org.uk/linux%20benchmarks.htm
+ http://www.roylongbottom.org.uk/linux_cuda_mflops.htm
+
+
+ INSTRUCTIONS
+
+ With Terminal pointing to a directory containing 32-Bit or 64-Bit
+ execution files and appropriate library file, first step should be
+ to ensure that the libray file can be found. In my case the following
+ command achieves this:
+
+ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/
+
+ Each benchmark program can be run using the usual 
+ ./program_name command. Results will be displayed and saved in 
+ file CudaLog.txt.
+
+ Please send results on different varieties of Linux and/or 
+ different hardware to:
+
+ roy@roylongbottom.org.uk
+
+ Roy Longbottom
+ January 2011
+
